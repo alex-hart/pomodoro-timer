@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Pomodoro Timer
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="jumbotron-fluid">
+      <div class="container vertical-center">
+        <div class="main-box">
+          <!--Timer settings section-->
+          <div class="row time-settings">
+            <div class="col-md-6">
+              <div class="break-area text-center">
+                <p>Break Timer</p>
+                <div class="settings">
+                  <div class="center-box">
+                    <div id="break-minus" class="adjust-button text-center">
+                      <a href=# class="anchor">
+                        <h2>-</h2>
+                      </a>
+                    </div>
+                    <h2 id="break-time"></h2>
+                    <div id="break-plus" class="adjust-button text-center">
+                      <a href="#" class="anchor">
+                        <h2>+</h2>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <a href="#"><p id="break-min" class="min-sec-adj">min</p></a>
+                <a href="#"><p id="break-sec" class="min-sec-adj active">sec</p></a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="pom-area text-center">
+                <p>Pomodoro Timer</p>
+                <div class="settings">
+                  <div class="center-box">
+                    <div id="pom-minus" class="adjust-button text-center">
+                      <a href="#" class="anchor">
+                        <h2>-</h2>
+                      </a>
+                    </div>
+                    <h2 id="pom-time"></h2>
+                    <div id="pom-plus" class="adjust-button text-center">
+                      <a href="#" class="anchor">
+                        <h2>+</h2>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <a href="#"><p id="pom-min" class="min-sec-adj inactive">min</p></a>
+                <a href="#"><p id="pom-sec" class="min-sec-adj active">sec</p></a>
+              </div>
+            </div>
+          </div>
+          <!-- End of timer settings section-->
+          <!--Main time section-->
+          <div class="timer-zone">
+            <p class="time-text" id="sessions">Sessions: 0</p>
+            <p class="time-text" id="time-description">Time left until next break:</p>
+            <h1 id="main-time"></h1>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div id="start-button" class="button text-center start">
+                <a href="#" class="anchor">
+                  <p id="start-pause">Start</p>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div id="stop-button" class="button text-center">
+                <a href="#" class="anchor">
+                  <p>Stop</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>Made by <a href="https://codepen.io/alex-hart/full/JMajKy" target="_blank" id="name-space" class="anchor">Alex Hart</a></footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="js/timer.js"></script>
+  </body>
+</html>
