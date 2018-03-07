@@ -1,9 +1,5 @@
 $(document).ready(function() {
   var displayType = "pomodoro";
-
-  $('#pom-sec').on('click', function() {
-
-  });
   //Pomodoro timer variables
   var pomAdjust = "sec";
   var breakAdjust = "sec";
@@ -14,13 +10,15 @@ $(document).ready(function() {
   var pomSec = pomTimerTotal1 % 60;
   //pomDisplay is what will be displayed on the website
   var pomDisplay;
+  var $pomTime = $('#pom-time');
+  var $mainTime = $('#main-time');
   if (pomSec.toString().length == 1) {
     pomDisplay = pomMin.toString() + ":0" + pomSec.toString();
   } else {
     pomDisplay = pomMin.toString() + ":" + pomSec.toString();
   }
-  $('#pom-time').text(pomDisplay);
-  $('#main-time').text(pomDisplay);
+  $pomTime.text(pomDisplay);
+  $mainTime.text(pomDisplay);
   var buttonType = "start";
   var isPaused = false;
   var sessions = 0;
@@ -31,15 +29,20 @@ $(document).ready(function() {
   var breakMin = Math.floor(breakTimerTotal1 / 60);
   var breakSec = breakTimerTotal1 % 60;
   var breakDisplay;
+  var $breakTime = $('#break-time');
   if (breakSec.toString().length == 1) {
     breakDisplay = breakMin.toString() + ":0" + breakSec.toString();
   } else {
     breakDisplay = breakMin.toString() + ":" + breakSec.toString();
   }
-  $('#break-time').text(breakDisplay);
+  $breakTime.text(breakDisplay);
 
   // ---- Pomodoro timer controls ----
-  $('#pom-plus').on('click', function(e) {
+  var $pomPlus = $('#pom-plus');
+  var $pomMinus = $('#pom-minus');
+  var $pomSec = $('#pom-sec');
+  var $pomMin = $('#pom-min');
+  $pomPlus.on('click', function(e) {
     e.preventDefault();
     if (pomAdjust == "sec") {
       pomTimerTotal1 += 15;
@@ -55,11 +58,11 @@ $(document).ready(function() {
     } else {
       pomDisplay = pomMin.toString() + ":" + pomSec.toString();
     }
-    $('#pom-time').text(pomDisplay);
-    $('#main-time').text(pomDisplay);
+    $pomTime.text(pomDisplay);
+    $mainTime.text(pomDisplay);
   });
 
-  $('#pom-minus').on('click', function(e) {
+  $pomMinus.on('click', function(e) {
     e.preventDefault();
     if (pomAdjust == "sec") {
       if (pomTimerTotal1 > 15) {
@@ -79,25 +82,29 @@ $(document).ready(function() {
     } else {
       pomDisplay = pomMin.toString() + ":" + pomSec.toString();
     }
-    $('#pom-time').text(pomDisplay);
-    $('#main-time').text(pomDisplay);
+    $pomTime.text(pomDisplay);
+    $mainTime.text(pomDisplay);
   });
 
-  $('#pom-sec').on('click', function(e) {
+  $pomSec.on('click', function(e) {
     e.preventDefault();
     $(this).addClass('active');
-    $('#pom-min').removeClass('active');
+    $pomMin.removeClass('active');
     pomAdjust = "sec";
   });
-  $('#pom-min').on('click', function(e) {
+  $pomMin.on('click', function(e) {
     e.preventDefault();
     $(this).addClass('active');
-    $('#pom-sec').removeClass('active');
+    $pomSec.removeClass('active');
     pomAdjust = "min";
   });
 
   // ---- Break timer controls ----
-  $('#break-plus').on('click', function(e) {
+  var $breakPlus = $('#break-plus');
+  var $breakMinus = $('#break-minus');
+  var $breakSec = $('#break-sec');
+  var $breakMin = $('#break-min');
+  $breakPlus.on('click', function(e) {
     e.preventDefault();
     if (breakAdjust == "sec") {
       breakTimerTotal1 += 15;
@@ -114,10 +121,10 @@ $(document).ready(function() {
     } else {
       breakDisplay = breakMin.toString() + ":" + breakSec.toString();
     }
-    $('#break-time').text(breakDisplay);
+    $breakTime.text(breakDisplay);
   });
 
-  $('#break-minus').on('click', function(e) {
+  $breakMinus.on('click', function(e) {
     e.preventDefault();
     if (breakAdjust == "sec") {
       if (breakTimerTotal1 > 15) {
@@ -137,56 +144,61 @@ $(document).ready(function() {
     } else {
       breakDisplay = breakMin.toString() + ":" + breakSec.toString();
     }
-    $('#break-time').text(breakDisplay);
+    $breakTime.text(breakDisplay);
   });
 
-  $('#break-sec').on('click', function(e) {
+  $breakSec.on('click', function(e) {
     e.preventDefault();
     $(this).addClass('active');
-    $('#break-min').removeClass('active');
+    $breakMin.removeClass('active');
     breakAdjust = "sec";
   });
-  $('#break-min').on('click', function(e) {
+  $breakMin.on('click', function(e) {
     e.preventDefault();
     $(this).addClass('active');
-    $('#break-sec').removeClass('active');
+    $breakSec.removeClass('active');
     breakAdjust = "min";
   });
 
   // ---- Start and Stop button ----
   var startCountdown;
   var clickOnce = 0;
-  $('#start-button').on('click', function(e) {
+  var $startBtn = $('#start-button');
+  var $stopBtn = $('#stop-button');
+  var $startPause = $('#start-pause');
+  var $timeSettings = $('.time-settings');
+  $startBtn.on('click', function(e) {
     e.preventDefault();
     if (buttonType == 'start') {
-      $('#start-button').removeClass('start');
-      $('#start-button').addClass('pause');
-      $('#start-pause').text('Pause');
+      $startBtn.removeClass('start');
+      $startBtn.addClass('pause');
+      $startPause.text('Pause');
       buttonType = 'pause';
-      $('.time-settings').fadeOut(1000);
+      $timeSettings.fadeOut(1000);
       if (clickOnce === 0) {
         clickOnce = 1;
         startCountdown = setInterval(countdown, 1000);
       }
     } else if (buttonType == 'pause') {
-      $('#start-button').removeClass('pause');
-      $('#start-button').addClass('start');
-      $('#start-pause').text('Resume');
+      $startBtn.removeClass('pause');
+      $startBtn.addClass('start');
+      $startPause.text('Resume');
       buttonType = 'resume';
       isPaused = true;
     } else {
-      $('#start-button').removeClass('start');
-      $('#start-button').addClass('pause');
-      $('#start-pause').text('Pause');
+      $startBtn.removeClass('start');
+      $startBtn.addClass('pause');
+      $startPause.text('Pause');
       buttonType = 'pause';
       isPaused = false;
     }
   });
 
-  $('#stop-button').on('click', function(e) {
+  var $timeDescription = $('#time-description');
+  $stopBtn.on('click', function(e) {
     e.preventDefault();
     displayType = "pomodoro";
-    $('#time-description').text("Time left until next break:")
+    $timeDescription.text("Time left until next break:")
     clearInterval(startCountdown);
     pomTimerTotal2 = pomTimerTotal1;
     breakTimerTotal2 = breakTimerTotal1;
@@ -198,12 +210,12 @@ $(document).ready(function() {
       pomDisplay = pomMin.toString() + ":" + pomSec.toString();
     }
     clickOnce = 0;
-    $('#main-time').text(pomDisplay);
+    $mainTime.text(pomDisplay);
     buttonType = 'start';
-    $('#start-pause').text('Start');
-    $('#start-button').removeClass('pause');
-    $('#start-button').addClass('start');
-    $('.time-settings').fadeIn(1000);
+    $startPause.text('Start');
+    $startBtn.removeClass('pause');
+    $startBtn.addClass('start');
+    $timeSettings.fadeIn(1000);
   });
 
   function countdown() {
@@ -218,14 +230,14 @@ $(document).ready(function() {
       } else {
         pomDisplay = pomMin.toString() + ":" + pomSec.toString();
       }
-      $('#main-time').text(pomDisplay);
+      $mainTime.text(pomDisplay);
       if (pomTimerTotal2 == -1) {
         //pomTimerTotal2 = pomTimerTotal1 + 1;
         breakTimerTotal2 = breakTimerTotal1 + 1;
         clearInterval(startCountdown);
         displayType = "break";
-        $('#main-time').text(breakDisplay);
-        $('#time-description').text("Break time!");
+        $mainTime.text(breakDisplay);
+        $timeDescription.text("Break time!");
         startCountdown = setInterval(countdown, 1000);
       }
     }
@@ -240,7 +252,7 @@ $(document).ready(function() {
       } else {
         breakDisplay = breakMin.toString() + ":" + breakSec.toString();
       }
-      $('#main-time').text(breakDisplay);
+      $mainTime.text(breakDisplay);
       if (breakTimerTotal2 == -1) {
         sessions++;
         $('#sessions').text('Sessions: ' + sessions)
@@ -254,8 +266,8 @@ $(document).ready(function() {
         }
         clearInterval(startCountdown);
         displayType = "pomodoro";
-        $('#main-time').text(pomDisplay);
-        $('#time-description').text("Time left until next break:");
+        $mainTime.text(pomDisplay);
+        $timeDescription.text("Time left until next break:");
         startCountdown = setInterval(countdown, 1000);
       }
     }
